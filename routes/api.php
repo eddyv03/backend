@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CarouselItemsController;
 use App\Http\Controllers\Api\LetterController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Message APIs
+Route::controller(MessageController::class)->group(function () {
+    Route::get('/message',          'index');
+    Route::get('/message/{id}',     'show');
+    Route::post('/message',         'store');
+    Route::put('/message/{id}',     'update');
+    Route::delete('/message/{id}',  'destroy');
+});
+
+
 //Public APIs
 Route::post('/login', [AuthController::class, 'login'])->name('user.login');
 Route::post('/user', [UserController::class, 'store'])->name('user.store');
@@ -30,28 +41,28 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     //Admin APIs
     Route::controller(CarouselItemsController::class)->group(function () {
-        Route::get('/carousel', 'index');
-        Route::get('/carousel/{id}', 'show');
-        Route::post('/carousel', 'store');
-        Route::put('/carousel/{id}', 'update');
-        Route::delete('/carousel/{id}', 'destroy');
+        Route::get('/carousel',             'index');
+        Route::get('/carousel/{id}',        'show');
+        Route::post('/carousel',            'store');
+        Route::put('/carousel/{id}',        'update');
+        Route::delete('/carousel/{id}',     'destroy');
     });
 
     Route::controller(UserController::class)->group(function () {
-        Route::get('/user', 'index');
-        Route::get('/user/{id}', 'show');
-        Route::put('/user/{id}', 'update')->name('user.update');
-        Route::put('/user/email/{id}', 'email')->name('user.email');
-        Route::put('/user/password/{id}', 'password')->name('user.password');
-        Route::delete('/user/{id}', 'destroy');
-        Route::put('/user/image/{id}', 'image')->name('user.image');
+        Route::get('/user',                 'index');
+        Route::get('/user/{id}',            'show');
+        Route::put('/user/{id}',            'update')->name('user.update');
+        Route::put('/user/email/{id}',      'email')->name('user.email');
+        Route::put('/user/password/{id}',   'password')->name('user.password');
+        Route::delete('/user/{id}',         'destroy');
+        Route::put('/user/image/{id}',      'image')->name('user.image');
     });
 
     Route::controller(LetterController::class)->group(function () {
-        Route::get('/letter', 'index');
-        Route::get('/letter/{id}', 'show');
-        Route::post('/letter', 'store');
-        Route::delete('/letter/{id}', 'destroy');
+        Route::get('/letter',               'index');
+        Route::get('/letter/{id}',          'show');
+        Route::post('/letter',              'store');
+        Route::delete('/letter/{id}',       'destroy');
     }); 
 
     //User Specific APIs
